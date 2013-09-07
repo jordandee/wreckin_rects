@@ -3,7 +3,7 @@
 CC=g++
 CFLAGS=-c
 LIBS=-lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
-SOURCES=main.cpp draw_lines.cpp collision.cpp level1.cpp title.cpp intro.cpp gamestate.cpp timer.cpp globals.cpp image.cpp init.cpp
+SOURCES=main.cpp block.cpp draw_lines.cpp collision.cpp level1.cpp title.cpp intro.cpp gamestate.cpp timer.cpp globals.cpp image.cpp init.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 TARGET=level_editor
 
