@@ -7,7 +7,7 @@ class Level1 : public GameState
 {
   private:
     SDL_Surface *background;
-    Block blocks[10];
+    Block blocks[160];
 
   public:
     Level1();

@@ -14,15 +14,21 @@ Level1::Level1()
   background = load_image("level1bg.png");
 
   std::ifstream level("level.txt");
-  int stat = 0;
-  
-  for (int i = 0; i < 10; i++)
+  int stat = 0, i = 0;
+
+  for (int y = 0; y < SCREEN_HEIGHT-120; y += 30)
   {
-    blocks[i].set_xy(i*80,0);
-    level >> stat;
-    blocks[i].set_status(stat);
+    for (int x = 0; x < SCREEN_WIDTH; x += 80)
+    {
+      blocks[i].set_xy(x,y);
+      level >> stat;
+      blocks[i].set_status(stat);
+      i++;
+    }
+    // ignore eol
+    level.ignore();
   }
-  
+
   level.close();
 }
 
@@ -44,15 +50,15 @@ void Level1::handle_events()
       set_next_state(STATE_EXIT);
     }
     /*
-    else if (event.type == SDL_KEYDOWN)
-    {
-      switch(event.key.keysym.sym)
-      {
-        case SDLK_a: blah(); break;
-        case SDLK_d: break;
-        case SDLK_SPACE: break;
-      }
-    }*/
+       else if (event.type == SDL_KEYDOWN)
+       {
+       switch(event.key.keysym.sym)
+       {
+       case SDLK_a: blah(); break;
+       case SDLK_d: break;
+       case SDLK_SPACE: break;
+       }
+       }*/
   }
 }
 
@@ -64,12 +70,12 @@ void Level1::logic(Uint32 deltaTime)
 void Level1::render()
 {
   apply_surface(0, 0, background, screen);
-  
-  for (int i = 0; i < 10; i++)
+
+  for (int i = 0; i < 160; i++)
   {
     blocks[i].render();
   }
-  
+
   // draw grid
   for (int x = 0; x < SCREEN_WIDTH; x += 80)
   {
@@ -79,5 +85,5 @@ void Level1::render()
   {
     Line(0,y,SCREEN_WIDTH,y,RGBA_to_Uint32(0,0,255,0));
   }
-  
+
 }
