@@ -1,7 +1,7 @@
-Snake
-=====
+Wreckin Rects
+=============
 
-An SDL snake clone.
+An SDL breakout clone.
 
 
 Installation for Ubuntu 12.04:
