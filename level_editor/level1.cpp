@@ -14,7 +14,8 @@ Level1::Level1()
 {
   background = load_image("level1bg.png");
 
-  mouseClicked = false;
+  mouseLeftClicked = false;
+  mouseRightClicked = false;
 
   std::ifstream level("level.txt");
   int stat = 0, i = 0;
@@ -64,7 +65,13 @@ void Level1::handle_events()
     {
       if (event.button.button == SDL_BUTTON_LEFT)
       {
-        mouseClicked = true;
+        mouseLeftClicked = true;
+        mouseX = event.motion.x;
+        mouseY = event.motion.y;
+      }
+      else if (event.button.button == SDL_BUTTON_RIGHT)
+      {
+        mouseRightClicked = true;
         mouseX = event.motion.x;
         mouseY = event.motion.y;
       }
@@ -85,14 +92,25 @@ void Level1::handle_events()
 
 void Level1::logic(Uint32 deltaTime)
 {
-  if (mouseClicked)
+  if (mouseLeftClicked)
   {
-    mouseClicked = false;
+    mouseLeftClicked = false;
     for (int i = 0; i < 160; i++)
     {
       if (check_collision(blocks[i].get_rect(), mouseX, mouseY))
       {
-        blocks[i].set_status(1);
+        blocks[i].increase_status();
+      }
+    }
+  }
+  if (mouseRightClicked)
+  {
+    mouseRightClicked = false;
+    for (int i = 0; i < 160; i++)
+    {
+      if (check_collision(blocks[i].get_rect(), mouseX, mouseY))
+      {
+        blocks[i].decrease_status();
       }
     }
   }

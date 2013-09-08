@@ -19,7 +19,37 @@ void Block::render()
 {
   if (status == 1)
   {
-    SDL_FillRect(screen,&rect,SDL_MapRGB(screen->format,255,255,255));
+    SDL_FillRect(screen,&rect,SDL_MapRGB(screen->format,16,127,201));
+  }
+  else if (status == 2)
+  {
+    SDL_FillRect(screen,&rect,SDL_MapRGB(screen->format,14,78,173));
+  }
+  else if (status == 3)
+  {
+    SDL_FillRect(screen,&rect,SDL_MapRGB(screen->format,11,16,140));
+  }
+  else if (status == 4)
+  {
+    SDL_FillRect(screen,&rect,SDL_MapRGB(screen->format,12,15,102));
+  }
+}
+
+void Block::increase_status()
+{
+  status++;
+  if (status > 4)
+  {
+    status = 4;
+  }
+}
+
+void Block::decrease_status()
+{
+  status--;
+  if (status < 0)
+  {
+    status = 0;
   }
 }
 

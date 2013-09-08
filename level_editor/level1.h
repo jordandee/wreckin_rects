@@ -9,7 +9,8 @@ class Level1 : public GameState
     SDL_Surface *background;
     Block blocks[160];
 
-    bool mouseClicked;
+    bool mouseLeftClicked;
+    bool mouseRightClicked;
     int mouseX;
     int mouseY;
 
