@@ -45,3 +45,16 @@ bool check_collision(SDL_Rect A, SDL_Rect B)
     //If none of the sides from A are outside B
     return true;
 }
+
+// Returns true if there is a collision
+bool check_collision(SDL_Rect A, int X, int Y)
+{
+  if ((X >= A.x) && (X <= A.x+A.w) && (Y >= A.y) && (Y <= A.y+A.h))
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}

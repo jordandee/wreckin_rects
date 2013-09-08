@@ -6,12 +6,15 @@
 #include "gamestate.h"
 #include "level1.h"
 #include "block.h"
+#include "collision.h"
 #include <fstream>
 #include "draw_lines.h"
 
 Level1::Level1()
 {
   background = load_image("level1bg.png");
+
+  mouseClicked = false;
 
   std::ifstream level("level.txt");
   int stat = 0, i = 0;
@@ -21,12 +24,20 @@ Level1::Level1()
     for (int x = 0; x < SCREEN_WIDTH; x += 80)
     {
       blocks[i].set_xy(x,y);
-      level >> stat;
+
+      if (level)
+      {
+        level >> stat;
+      }
+
       blocks[i].set_status(stat);
       i++;
     }
-    // ignore eol
-    level.ignore();
+    if (level)
+    {
+      // ignore eol
+      level.ignore();
+    }
   }
 
   level.close();
@@ -49,6 +60,16 @@ void Level1::handle_events()
     {
       set_next_state(STATE_EXIT);
     }
+    else if(event.type == SDL_MOUSEBUTTONDOWN)
+    {
+      if (event.button.button == SDL_BUTTON_LEFT)
+      {
+        mouseClicked = true;
+        mouseX = event.motion.x;
+        mouseY = event.motion.y;
+      }
+    }
+
     /*
        else if (event.type == SDL_KEYDOWN)
        {
@@ -64,6 +85,17 @@ void Level1::handle_events()
 
 void Level1::logic(Uint32 deltaTime)
 {
+  if (mouseClicked)
+  {
+    mouseClicked = false;
+    for (int i = 0; i < 160; i++)
+    {
+      if (check_collision(blocks[i].get_rect(), mouseX, mouseY))
+      {
+        blocks[i].set_status(1);
+      }
+    }
+  }
   //.move(deltaTime);
 }
 

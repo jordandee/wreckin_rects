@@ -9,6 +9,10 @@ class Level1 : public GameState
     SDL_Surface *background;
     Block blocks[160];
 
+    bool mouseClicked;
+    int mouseX;
+    int mouseY;
+
   public:
     Level1();
     ~Level1();
