@@ -47,6 +47,21 @@ Level1::Level1()
 Level1::~Level1()
 {
   SDL_FreeSurface(background);
+
+  std::ofstream save("level.txt");
+
+  for (int i = 0; i < 160; i++)
+  {
+    save << blocks[i].get_status();
+    save << " ";
+
+    if ((i+1) % 10 == 0)
+    {
+      save << "\n";
+    }
+  }
+
+  save.close();
 }
 
 void Level1::handle_events()

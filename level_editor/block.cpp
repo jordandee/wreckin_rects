@@ -58,6 +58,11 @@ void Block::set_status(int S)
   status = S;
 }
 
+int Block::get_status()
+{
+  return status;
+}
+
 void Block::set_xy(int X, int Y)
 {
   rect.x = X;

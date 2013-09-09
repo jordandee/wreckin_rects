@@ -1,8 +1,0 @@
-make it save level when you close the editor
-
-
-
-done
-
-make it so clicking increases status of block by 1 instead of setting it
-have it display status's as different colors, higher than certain number should just be grey that way it does not have to define every number

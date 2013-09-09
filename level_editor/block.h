@@ -15,6 +15,7 @@ class Block
     void increase_status();
     void decrease_status();
     void set_status(int S);
+    int get_status();
     void set_xy(int X, int Y);
     SDL_Rect get_rect();
 };
