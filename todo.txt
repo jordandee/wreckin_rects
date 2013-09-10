@@ -1,0 +1,16 @@
+ball texture
+
+fix collision with paddle, i have a feeling x might be working (left side) but ball sometimes gets caught in middle when moving paddle left into it, seems to bounce off left side correctly when 
+also probably a hard case about when ball is trapped between wall and paddle, should probably just make it go up then, but how to detect?
+
+fix spacebar serve, maybe leave it in somehow for quick testing tho
+
+make it so you have to win level in one turn, blocks reset to file settings if fail
+
+detect win level condition, say level has been won, blah to continue
+make the ball a bit faster in each level
+
+make some new levels, probably some new backgrounds too
+carbon copy level 1 code for levels 1-5, only difference should be level that loads when you beat it
+
+win game screen, restart or end
