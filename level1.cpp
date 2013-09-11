@@ -88,12 +88,29 @@ void Level1::logic(Uint32 deltaTime)
   paddle.move(deltaTime);
   //check for collision with sides of paddle
   SDL_Rect pad = paddle.get_rect();
-  SDL_Rect padL, padR;
+  SDL_Rect padL, padR, padT;
+  
   padL.x = pad.x;
   padL.y = pad.y+5;
   padL.w = 1;
   padL.h = pad.h-5;
+
+  padR.x = pad.x + pad.w;
+  padR.y = pad.y+5;
+  padR.w = 1;
+  padR.h = pad.h-5;
+
+  padT.x = pad.x+5;
+  padT.y = pad.y;
+  padT.w = pad.w-10;
+  padT.h = 1;
+
   if (check_collision(padL, ball.get_rect()) && ball.get_xVel() > 0)
+  {
+    ball.change_xdirection();
+    ball.moveX(deltaTime);
+  }
+  else if (check_collision(padR, ball.get_rect()) && ball.get_xVel() < 0)
   {
     ball.change_xdirection();
     ball.moveX(deltaTime);
@@ -112,19 +129,17 @@ void Level1::logic(Uint32 deltaTime)
       }
     }
   }
-  //check for collision with sides of paddle
-  pad = paddle.get_rect();
-  //SDL_Rect padL, padR;
-  padL.x = pad.x;
-  padL.y = pad.y+5;
-  padL.w = 1;
-  padL.h = pad.h-5;
+  
   if (check_collision(padL, ball.get_rect()) && ball.get_xVel() > 0)
   {
     ball.change_xdirection();
     ball.moveX(deltaTime);
   }
-
+  else if (check_collision(padR, ball.get_rect()) && ball.get_xVel() < 0)
+  {
+    ball.change_xdirection();
+    ball.moveX(deltaTime);
+  }
 
   ball.moveY(deltaTime);
   for (int i = 0; i < 160; i++)
@@ -139,7 +154,7 @@ void Level1::logic(Uint32 deltaTime)
     }
   }
   //check for paddle collision
-  if (check_collision(paddle.get_rect(), ball.get_rect()))
+  if (check_collision(padT, ball.get_rect()) && ball.get_yVel() > 0)
   {
     ball.change_ydirection();
   }

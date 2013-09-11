@@ -1,7 +1,6 @@
 ball texture
 
-fix collision with paddle, i have a feeling x might be working (left side) but ball sometimes gets caught in middle when moving paddle left into it, seems to bounce off left side correctly when 
-also probably a hard case about when ball is trapped between wall and paddle, should probably just make it go up then, but how to detect?
+probably should redo collision detection completely, make it use the line intercept recursion method, find line between where ball is now and where it will move, detect if that line intersects with a block/paddle, move to the intersection spot, now calculate a new line between where the ball is and where it should go (if it was intersected at half length at first object, has half to go) and use new smaller timestep to reflect accurately and check if it hits another object, recurse, etc
 
 fix spacebar serve, maybe leave it in somehow for quick testing tho
 
