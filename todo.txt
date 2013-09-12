@@ -1,10 +1,9 @@
 ball texture
 
 probably should redo collision detection completely, make it use the line intercept recursion method, find line between where ball is now and where it will move, detect if that line intersects with a block/paddle, move to the intersection spot, now calculate a new line between where the ball is and where it should go (if it was intersected at half length at first object, has half to go) and use new smaller timestep to reflect accurately and check if it hits another object, recurse, etc
+http://codeincomplete.com/posts/2011/6/12/collision_detection_in_breakout/
 
 fix spacebar serve, maybe leave it in somehow for quick testing tho
-
-make it so you have to win level in one turn, blocks reset to file settings if fail
 
 detect win level condition, say level has been won, blah to continue
 make the ball a bit faster in each level

@@ -40,10 +40,6 @@ void Ball::moveY(Uint32 deltaTime)
     y = 0;
     yVel *= -1;
   }
-  else if (y + rect.h >= SCREEN_HEIGHT)
-  {
-    reset();
-  }
   rect.y = y;
 }
 

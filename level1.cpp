@@ -12,6 +12,16 @@ Level1::Level1()
 {
   background = load_image("level1bg.png");
 
+  load_level();
+}
+
+Level1::~Level1()
+{
+  SDL_FreeSurface(background);
+}
+
+void Level1::load_level()
+{
   std::ifstream level("level01.txt");
   int stat = 0, i = 0;
 
@@ -37,11 +47,6 @@ Level1::Level1()
   }
 
   level.close();
-}
-
-Level1::~Level1()
-{
-  SDL_FreeSurface(background);
 }
 
 void Level1::handle_events()
@@ -157,6 +162,12 @@ void Level1::logic(Uint32 deltaTime)
   if (check_collision(padT, ball.get_rect()) && ball.get_yVel() > 0)
   {
     ball.change_ydirection();
+  }
+  //check if went down off screen
+  if (ball.get_rect().y + ball.get_rect().h >= SCREEN_HEIGHT)
+  {
+    ball.reset();
+    load_level();
   }
 }
 

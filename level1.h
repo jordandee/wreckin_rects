@@ -18,6 +18,7 @@ class Level1 : public GameState
     Level1();
     ~Level1();
 
+    void load_level();
     void handle_events();
     void logic(Uint32 deltaTime);
     void render();
