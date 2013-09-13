@@ -3,6 +3,7 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
 #include "init.h"
 #include "globals.h"
 #include "constants.h"
@@ -29,6 +30,11 @@ bool init()
 
   SDL_WM_SetCaption("Wreckin Rects", NULL);
 
+  if(Mix_OpenAudio(22050,MIX_DEFAULT_FORMAT,2,4096) == -1)
+  {
+    return false;
+  }
+
   srand(SDL_GetTicks());
 
   return true;
@@ -53,6 +59,8 @@ void clean_up()
 
   TTF_CloseFont(font);
   TTF_Quit();
+
+  Mix_CloseAudio();
 
   SDL_Quit();
 }

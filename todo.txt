@@ -1,9 +1,10 @@
-ball texture
+MUSTS
 
-probably should redo collision detection completely, make it use the line intercept recursion method, find line between where ball is now and where it will move, detect if that line intersects with a block/paddle, move to the intersection spot, now calculate a new line between where the ball is and where it should go (if it was intersected at half length at first object, has half to go) and use new smaller timestep to reflect accurately and check if it hits another object, recurse, etc
-http://codeincomplete.com/posts/2011/6/12/collision_detection_in_breakout/
+ball flashes after collision
 
 fix spacebar serve, maybe leave it in somehow for quick testing tho
+
+make it so ball's xVel changes a bit based on whether paddle is moving when it hits it
 
 detect win level condition, say level has been won, blah to continue
 make the ball a bit faster in each level
@@ -12,3 +13,28 @@ make some new levels, probably some new backgrounds too
 carbon copy level 1 code for levels 1-5, only difference should be level that loads when you beat it
 
 win game screen, restart or end
+
+NICE TO HAVES
+
+redo collision detection completely, make it use the line intercept recursion method, find line between where ball is now and where it will move, detect if that line intersects with a block/paddle, move to the intersection spot, now calculate a new line between where the ball is and where it should go (if it was intersected at half length at first object, has half to go) and use new smaller timestep to reflect accurately and check if it hits another object, recurse, etc
+http://codeincomplete.com/posts/2011/6/12/collision_detection_in_breakout/
+
+JUICE ideas from vid
+http://gamasutra.com/view/news/178938/Video_Is_your_game_juicy_enough.php
+http://grapefrukt.com/f/games/juicy-breakout/
+
+SFX: combo block hits - eg plays tone on first hit and if it hits another within a certain amount of time it plays a slightly higher tone so their can be a combo of tones increasing in pitch when it hits multiple blocks in a row
+
+Blocks fall into place from above screen, could be linear or some quadratic, eg starts fast, slows down, overshoots a bit, then goes into place
+
+ball gets larger when it bounces on something
+ball emits particle effects when it bounces
+ball leaves behind fading trail showing where it has been
+ball hits shake screen so it feels more like it has a lot of force
+
+blocks fall with gravity, shatter, and/or get knocked in direction ball was moving when hit
+blocks get smaller and fade away after hit
+
+paddle has face with eyes that watch ball and smiles when it hits the ball
+
+and whatever you can imagine....
