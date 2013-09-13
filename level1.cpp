@@ -207,6 +207,7 @@ void Level1::logic(Uint32 deltaTime)
   if (paddleHit)
   {
     Mix_PlayChannel(2,Amin[0],0);
+    blockLastHitTime = timer.get_ticks(); // for ball flashing only
   }
   if (blockHit)
   {
@@ -258,5 +259,14 @@ void Level1::render()
     blocks[i].render();
   }
   paddle.render();
-  ball.render();
+
+  // flash ball if it just hit block or paddle
+  if (timer.get_ticks() - blockLastHitTime < 200)
+  {
+    ball.render(2);
+  }
+  else
+  {
+    ball.render(1);
+  }
 }

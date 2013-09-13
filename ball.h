@@ -5,6 +5,7 @@ class Ball
 {
   private:
     SDL_Surface *ballsurf;
+    SDL_Surface *ballsurf2;
 
     SDL_Rect rect;
     float x,y;
@@ -18,7 +19,7 @@ class Ball
     void moveY(Uint32 deltaTime);
     void reset();
     void serve();
-    void render();
+    void render(int surface);
     SDL_Rect get_rect();
     void change_xdirection();
     void change_ydirection();

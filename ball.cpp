@@ -7,6 +7,7 @@
 Ball::Ball()
 {
   ballsurf = load_image("ball.png");
+  ballsurf2 = load_image("ball2.png");
 
   reset();
 }
@@ -14,6 +15,7 @@ Ball::Ball()
 Ball::~Ball()
 {
   SDL_FreeSurface(ballsurf);
+  SDL_FreeSurface(ballsurf2);
 }
 
 void Ball::moveX(Uint32 deltaTime)
@@ -68,9 +70,17 @@ void Ball::serve()
   if (rand() % 2 == 0) { xVel *= -1; }
 }
 
-void Ball::render()
+void Ball::render(int surface)
 {
-  apply_surface(rect.x,rect.y,ballsurf,screen);
+  if (surface == 1)
+  {
+    apply_surface(rect.x,rect.y,ballsurf,screen);
+  }
+  else if (surface == 2)
+  {
+    apply_surface(rect.x,rect.y,ballsurf2,screen);
+  }
+
 }
 
 SDL_Rect Ball::get_rect()
