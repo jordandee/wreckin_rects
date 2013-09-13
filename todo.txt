@@ -1,18 +1,28 @@
 MUSTS
 
-ball flashes after collision
+ball flashes after collision with wall
 
-fix spacebar serve, maybe leave it in somehow for quick testing tho
+ready screen, space to serve message
 
 make it so ball's xVel changes a bit based on whether paddle is moving when it hits it
 
+blocks break into pieces when hit and get sent the direction the ball was going
+
+fix spacebar serve, maybe leave it in somehow for quick testing tho
+
 detect win level condition, say level has been won, blah to continue
+
+win sound
+lose sound
+
 make the ball a bit faster in each level
 
 make some new levels, probably some new backgrounds too
-carbon copy level 1 code for levels 1-5, only difference should be level that loads when you beat it
+carbon copy level 1 code for levels 1-5, only difference should be level that loads when you beat it, ball speed, maybe diff background and different sounds too or just a different progression through the notes
 
-win game screen, restart or end
+multi ball on last level or bonus level??
+
+win game screen, restart or end on last level
 
 NICE TO HAVES
 

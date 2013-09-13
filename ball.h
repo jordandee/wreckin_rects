@@ -17,9 +17,11 @@ class Ball
 
     void moveX(Uint32 deltaTime);
     void moveY(Uint32 deltaTime);
+    void render(int surface);
     void reset();
     void serve();
-    void render(int surface);
+    void set_x(int X);
+    void set_y(int Y);
     SDL_Rect get_rect();
     void change_xdirection();
     void change_ydirection();

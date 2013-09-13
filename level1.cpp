@@ -16,6 +16,7 @@ Level1::Level1()
   timer.start();
   blockLastHitTime = timer.get_ticks();
   blockHits = 0;
+  wallLastHitTime = timer.get_ticks();
 
   Amin[0] = Mix_LoadWAV("1A.wav");
   Amin[1] = Mix_LoadWAV("2C.wav");
@@ -118,7 +119,8 @@ void Level1::logic(Uint32 deltaTime)
   bool blockHit = false; // used to play sound
 
   paddle.move(deltaTime);
-  //check for collision with sides of paddle
+  
+  // create left, right, and top hit boxes for paddle collision detection
   SDL_Rect pad = paddle.get_rect();
   SDL_Rect padL, padR, padT;
 
@@ -137,6 +139,7 @@ void Level1::logic(Uint32 deltaTime)
   padT.w = pad.w-10;
   padT.h = 1;
 
+  // check for sides of paddle collisions with ball
   if (check_collision(padL, ball.get_rect()) && ball.get_xVel() > 0)
   {
     paddleHit = true;
@@ -149,6 +152,7 @@ void Level1::logic(Uint32 deltaTime)
     ball.change_xdirection();
     ball.moveX(deltaTime);
   }
+
 
   ball.moveX(deltaTime);
   // check for block collisions
@@ -177,8 +181,23 @@ void Level1::logic(Uint32 deltaTime)
     ball.change_xdirection();
     ball.moveX(deltaTime);
   }
+  // check for wall collisions
+  if (ball.get_rect().x < 0)
+  {
+    ball.change_xdirection();
+    ball.set_x(0);
+    wallLastHitTime = timer.get_ticks();
+  }
+  else if (ball.get_rect().x + ball.get_rect().w > SCREEN_WIDTH)
+  {
+    ball.change_xdirection();
+    ball.set_x(SCREEN_WIDTH - ball.get_rect().w);
+    wallLastHitTime = timer.get_ticks();
+  }
+
 
   ball.moveY(deltaTime);
+  // check for block collisions
   for (int i = 0; i < 160; i++)
   {
     if (blocks[i].get_status())
@@ -191,13 +210,20 @@ void Level1::logic(Uint32 deltaTime)
       }
     }
   }
-  //check for paddle collision
+  // check for paddle collision
   if (check_collision(padT, ball.get_rect()) && ball.get_yVel() > 0)
   {
     paddleHit = true;
     ball.change_ydirection();
   }
-  //check if went down off screen
+  // check for top wall collision
+  if (ball.get_rect().y < 0)
+  {
+    ball.change_ydirection();
+    ball.set_y(0);
+    wallLastHitTime = timer.get_ticks();
+  }
+  // check if went down off screen
   if (ball.get_rect().y + ball.get_rect().h >= SCREEN_HEIGHT)
   {
     ball.reset();
@@ -261,7 +287,7 @@ void Level1::render()
   paddle.render();
 
   // flash ball if it just hit block or paddle
-  if (timer.get_ticks() - blockLastHitTime < 200)
+  if ((timer.get_ticks() - blockLastHitTime < 200) || (timer.get_ticks() - wallLastHitTime < 200))
   {
     ball.render(2);
   }

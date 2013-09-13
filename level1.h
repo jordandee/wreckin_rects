@@ -19,6 +19,7 @@ class Level1 : public GameState
     Timer timer;
     int blockLastHitTime;
     int blockHits;
+    int wallLastHitTime;
 
     Mix_Chunk *Amin[6];
     Mix_Chunk *AminChord;

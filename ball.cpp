@@ -21,27 +21,12 @@ Ball::~Ball()
 void Ball::moveX(Uint32 deltaTime)
 {
   x += deltaTime * xVel;
-  if (x <= 0)
-  {
-    x = 0;
-    xVel *= -1;
-  }
-  else if (x + rect.w >= SCREEN_WIDTH)
-  {
-    x = SCREEN_WIDTH - rect.w;
-    xVel *=-1;
-  }
   rect.x = x;
 }
 
 void Ball::moveY(Uint32 deltaTime)
 {
   y += deltaTime * yVel;
-  if (y <= 0)
-  {
-    y = 0;
-    yVel *= -1;
-  }
   rect.y = y;
 }
 
@@ -81,6 +66,18 @@ void Ball::render(int surface)
     apply_surface(rect.x,rect.y,ballsurf2,screen);
   }
 
+}
+
+void Ball::set_x(int X)
+{
+  x = X;
+  rect.x = X;
+}
+
+void Ball::set_y(int Y)
+{
+  y = Y;
+  rect.y = Y;
 }
 
 SDL_Rect Ball::get_rect()
