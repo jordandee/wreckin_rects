@@ -1,10 +1,6 @@
 MUSTS
 
-ball flashes after collision with wall
-
 ready screen, space to serve message
-
-make it so ball's xVel changes a bit based on whether paddle is moving when it hits it
 
 blocks break into pieces when hit and get sent the direction the ball was going
 

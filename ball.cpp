@@ -104,3 +104,13 @@ float Ball::get_yVel()
 {
   return yVel;
 }
+
+void Ball::increase_xVel()
+{
+  xVel += .1;
+}
+
+void Ball::decrease_xVel()
+{
+  xVel -= .1;
+}

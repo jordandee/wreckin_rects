@@ -55,3 +55,8 @@ SDL_Rect Paddle::get_rect()
 {
   return rect;
 }
+
+float Paddle::get_xVel()
+{
+  return xVel;
+}

@@ -27,6 +27,8 @@ class Ball
     void change_ydirection();
     float get_xVel();
     float get_yVel();
+    void increase_xVel();
+    void decrease_xVel();
 };
 
 #endif

@@ -18,6 +18,7 @@ class Paddle
     void move(Uint32 deltaTime);
     void render();
     SDL_Rect get_rect();
+    float get_xVel();
 };
 
 #endif

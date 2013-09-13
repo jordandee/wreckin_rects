@@ -215,6 +215,15 @@ void Level1::logic(Uint32 deltaTime)
   {
     paddleHit = true;
     ball.change_ydirection();
+    // change ball's x velocity if it hits the paddle when it's moving
+    if (paddle.get_xVel() > .1)
+    {
+      ball.increase_xVel();
+    }
+    else if (paddle.get_xVel() < -.1)
+    {
+      ball.decrease_xVel();
+    }
   }
   // check for top wall collision
   if (ball.get_rect().y < 0)
