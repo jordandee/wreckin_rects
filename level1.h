@@ -11,6 +11,7 @@ class Level1 : public GameState
 {
   private:
     SDL_Surface *background;
+    SDL_Surface *readyMessage;
 
     Block blocks[160];
     Paddle paddle;
@@ -30,6 +31,7 @@ class Level1 : public GameState
     ~Level1();
 
     void load_level();
+    void ready_screen();
     void handle_events();
     void logic(Uint32 deltaTime);
     void render();

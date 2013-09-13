@@ -12,11 +12,12 @@
 Level1::Level1()
 {
   background = load_image("level1bg.png");
+  readyMessage = TTF_RenderText_Solid(font, "Get Ready ! ! ! !       Space to Serve", blue);
 
   timer.start();
-  blockLastHitTime = timer.get_ticks();
+  blockLastHitTime = timer.get_ticks() - 250; // -250 so ball doesn't flash at start
   blockHits = 0;
-  wallLastHitTime = timer.get_ticks();
+  wallLastHitTime = timer.get_ticks() - 250;
 
   Amin[0] = Mix_LoadWAV("1A.wav");
   Amin[1] = Mix_LoadWAV("2C.wav");
@@ -29,11 +30,14 @@ Level1::Level1()
   Elow = Mix_LoadWAV("E_low.wav");
 
   load_level();
+  ready_screen();
 }
 
 Level1::~Level1()
 {
   SDL_FreeSurface(background);
+  SDL_FreeSurface(readyMessage);
+
   Mix_FreeChunk(AminChord);
   Mix_FreeChunk(Elow);
   Mix_FreeChunk(Amin[0]);
@@ -72,6 +76,38 @@ void Level1::load_level()
 
   level.close();
 }
+
+void Level1::ready_screen()
+{
+  render();
+  apply_surface((SCREEN_WIDTH - readyMessage->w)/2, SCREEN_HEIGHT-150, readyMessage, screen );
+  SDL_Flip(screen);
+
+  while(1)
+  {
+    while(SDL_PollEvent(&event))
+    {
+      if(event.type == SDL_QUIT)
+      {
+        set_next_state(STATE_EXIT);
+        return;
+      }
+      else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))
+      {
+        set_next_state(STATE_EXIT);
+        return;
+      }
+      else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_SPACE))
+      {
+        //ball.serve();
+        //Mix_PlayChannel(2,Elow,0);
+        return;
+      }
+    }
+  }
+
+}
+
 
 void Level1::handle_events()
 {
@@ -119,7 +155,7 @@ void Level1::logic(Uint32 deltaTime)
   bool blockHit = false; // used to play sound
 
   paddle.move(deltaTime);
-  
+
   // create left, right, and top hit boxes for paddle collision detection
   SDL_Rect pad = paddle.get_rect();
   SDL_Rect padL, padR, padT;
