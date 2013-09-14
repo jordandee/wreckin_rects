@@ -107,10 +107,10 @@ float Ball::get_yVel()
 
 void Ball::increase_xVel()
 {
-  xVel += .1;
+  xVel += .05;
 }
 
 void Ball::decrease_xVel()
 {
-  xVel -= .1;
+  xVel -= .05;
 }

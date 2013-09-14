@@ -8,6 +8,7 @@
 #include "collision.h"
 #include <fstream>
 #include "level1.h"
+#include <iostream>
 
 Level1::Level1()
 {
@@ -29,7 +30,14 @@ Level1::Level1()
   AminChord = Mix_LoadWAV("Amin_chord.wav");
   Elow = Mix_LoadWAV("E_low.wav");
 
+  gibSelect = 0;
+  for (int i = 0; i < 4; i++)
+  {
+    gibs[i] = new Gib[24];
+  }
+
   load_level();
+
   ready_screen();
 }
 
@@ -46,6 +54,11 @@ Level1::~Level1()
   Mix_FreeChunk(Amin[3]);
   Mix_FreeChunk(Amin[4]);
   Mix_FreeChunk(Amin[5]);
+
+  for (int i = 0; i < 4; i++)
+  {
+    delete []gibs[i];
+  }
 }
 
 void Level1::load_level()
@@ -99,8 +112,6 @@ void Level1::ready_screen()
       }
       else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_SPACE))
       {
-        //ball.serve();
-        //Mix_PlayChannel(2,Elow,0);
         return;
       }
     }
@@ -108,6 +119,33 @@ void Level1::ready_screen()
 
 }
 
+// gibs yay
+void Level1::shatter_block(int B)
+{
+  int blockX = blocks[B].get_rect().x;
+  int blockY = blocks[B].get_rect().y;
+  int blockStatus = blocks[B].get_status();
+
+  float ballxVel = ball.get_xVel();
+  float ballyVel = ball.get_yVel();
+
+  int j = 0;
+  for (int x = blockX; x < blockX + 80; x += 10)
+  {
+    for (int y = blockY; y < blockY + 30; y += 10)
+    {
+      gibs[gibSelect][j].set_xy(x,y);
+      gibs[gibSelect][j].set_xyVel(ballxVel,ballyVel);
+      gibs[gibSelect][j].set_color(blockStatus);
+      j++;
+    }
+  }
+  gibSelect++;
+  if (gibSelect >= 4)
+  {
+    gibSelect = 0;
+  }
+}
 
 void Level1::handle_events()
 {
@@ -199,6 +237,7 @@ void Level1::logic(Uint32 deltaTime)
       if (check_collision(blocks[i].get_rect(), ball.get_rect()))
       {
         blockHit = true;
+        shatter_block(i);
         blocks[i].set_status(0);
         ball.change_xdirection();
       }
@@ -241,11 +280,14 @@ void Level1::logic(Uint32 deltaTime)
       if (check_collision(blocks[i].get_rect(), ball.get_rect()))
       {
         blockHit = true;
+        shatter_block(i);
         blocks[i].set_status(0);
         ball.change_ydirection();
       }
     }
   }
+  //std::cout << "x: " << gibs[1][0].get_rect().x << " ";
+  //std::cout << "y: " << gibs[1][0].get_rect().y << " ";
   // check for paddle collision
   if (check_collision(padT, ball.get_rect()) && ball.get_yVel() > 0)
   {
@@ -319,6 +361,13 @@ void Level1::logic(Uint32 deltaTime)
     }
   }
 
+  for (int i = 0; i < 4; i++)
+  {
+    for (int j = 0; j < 24; j++)
+    {
+      gibs[i][j].move(deltaTime);
+    }
+  }
 }
 
 void Level1::render()
@@ -330,6 +379,14 @@ void Level1::render()
     blocks[i].render();
   }
   paddle.render();
+
+  for (int i = 0; i < 4; i++)
+  {
+    for (int j = 0; j < 24; j++)
+    {
+      gibs[i][j].render();
+    }
+  }
 
   // flash ball if it just hit block or paddle
   if ((timer.get_ticks() - blockLastHitTime < 200) || (timer.get_ticks() - wallLastHitTime < 200))

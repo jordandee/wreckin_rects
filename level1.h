@@ -6,6 +6,7 @@
 #include "paddle.h"
 #include "ball.h"
 #include "timer.h"
+#include "gib.h"
 
 class Level1 : public GameState
 {
@@ -22,6 +23,9 @@ class Level1 : public GameState
     int blockHits;
     int wallLastHitTime;
 
+    Gib *gibs[4];
+    int gibSelect;
+
     Mix_Chunk *Amin[6];
     Mix_Chunk *AminChord;
     Mix_Chunk *Elow;
@@ -32,6 +36,7 @@ class Level1 : public GameState
 
     void load_level();
     void ready_screen();
+    void shatter_block(int B);
     void handle_events();
     void logic(Uint32 deltaTime);
     void render();

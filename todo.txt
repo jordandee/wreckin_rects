@@ -1,7 +1,5 @@
 MUSTS
 
-ready screen, space to serve message
-
 blocks break into pieces when hit and get sent the direction the ball was going
 
 fix spacebar serve, maybe leave it in somehow for quick testing tho
