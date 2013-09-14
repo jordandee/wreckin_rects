@@ -13,10 +13,14 @@ class Level1 : public GameState
   private:
     SDL_Surface *background;
     SDL_Surface *readyMessage;
+    SDL_Surface *winMessage;
 
     Block blocks[160];
+    int blockCount;
     Paddle paddle;
     Ball ball;
+
+    bool readyToServe;
 
     Timer timer;
     int blockLastHitTime;
@@ -28,6 +32,7 @@ class Level1 : public GameState
 
     Mix_Chunk *Amin[6];
     Mix_Chunk *AminChord;
+    Mix_Chunk *CmajChord;
     Mix_Chunk *Elow;
 
   public:
@@ -36,6 +41,7 @@ class Level1 : public GameState
 
     void load_level();
     void ready_screen();
+    void win_screen();
     void shatter_block(int B);
     void handle_events();
     void logic(Uint32 deltaTime);

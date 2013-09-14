@@ -1,18 +1,13 @@
 MUSTS
 
-blocks break into pieces when hit and get sent the direction the ball was going
+load level in a more interesting manner? fall into place? or?
 
-fix spacebar serve, maybe leave it in somehow for quick testing tho
-
-detect win level condition, say level has been won, blah to continue
-
-win sound
-lose sound
-
-make the ball a bit faster in each level
+when losing, delay before loading level?
 
 make some new levels, probably some new backgrounds too
 carbon copy level 1 code for levels 1-5, only difference should be level that loads when you beat it, ball speed, maybe diff background and different sounds too or just a different progression through the notes
+
+make the ball a bit faster in each level
 
 multi ball on last level or bonus level??
 

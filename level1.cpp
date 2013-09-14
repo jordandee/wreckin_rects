@@ -14,6 +14,7 @@ Level1::Level1()
 {
   background = load_image("level1bg.png");
   readyMessage = TTF_RenderText_Solid(font, "Get Ready ! ! ! !       Space to Serve", blue);
+  winMessage = TTF_RenderText_Solid(font, "You Win ! ! ! !     Level 1 Complete", blue);
 
   timer.start();
   blockLastHitTime = timer.get_ticks() - 250; // -250 so ball doesn't flash at start
@@ -28,6 +29,7 @@ Level1::Level1()
   Amin[5] = Mix_LoadWAV("6A.wav");
 
   AminChord = Mix_LoadWAV("Amin_chord.wav");
+  CmajChord = Mix_LoadWAV("Cmaj_chord.wav");
   Elow = Mix_LoadWAV("E_low.wav");
 
   gibSelect = 0;
@@ -45,9 +47,12 @@ Level1::~Level1()
 {
   SDL_FreeSurface(background);
   SDL_FreeSurface(readyMessage);
+  SDL_FreeSurface(winMessage);
 
   Mix_FreeChunk(AminChord);
+  Mix_FreeChunk(CmajChord);
   Mix_FreeChunk(Elow);
+
   Mix_FreeChunk(Amin[0]);
   Mix_FreeChunk(Amin[1]);
   Mix_FreeChunk(Amin[2]);
@@ -66,6 +71,7 @@ void Level1::load_level()
   std::ifstream level("level01.txt");
   int stat = 0, i = 0;
 
+  blockCount = 0;
   for (int y = 0; y < SCREEN_HEIGHT-120; y += 30)
   {
     for (int x = 0; x < SCREEN_WIDTH; x += 80)
@@ -75,6 +81,12 @@ void Level1::load_level()
       if (level)
       {
         level >> stat;
+      }
+
+      // count blocks to detect win condition
+      if (stat != 0)
+      {
+        blockCount++;
       }
 
       blocks[i].set_status(stat);
@@ -88,6 +100,8 @@ void Level1::load_level()
   }
 
   level.close();
+
+  readyToServe = true;
 }
 
 void Level1::ready_screen()
@@ -116,7 +130,35 @@ void Level1::ready_screen()
       }
     }
   }
+}
 
+void Level1::win_screen()
+{
+  apply_surface((SCREEN_WIDTH - winMessage->w)/2, 150, winMessage, screen );
+  SDL_Flip(screen);
+  
+  Mix_PlayChannel(1,CmajChord,0);
+
+  while(1)
+  {
+    while(SDL_PollEvent(&event))
+    {
+      if(event.type == SDL_QUIT)
+      {
+        set_next_state(STATE_EXIT);
+        return;
+      }
+      else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))
+      {
+        set_next_state(STATE_EXIT);
+        return;
+      }
+      else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_SPACE))
+      {
+        return;
+      }
+    }
+  }
 }
 
 // gibs yay
@@ -161,8 +203,12 @@ void Level1::handle_events()
     }
     else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_SPACE))
     {
-      ball.serve();
-      Mix_PlayChannel(2,Elow,0);
+      if (readyToServe)
+      {
+        ball.serve(.15,.2);
+        Mix_PlayChannel(2,Elow,0);
+        readyToServe = false;
+      }
     }
 
     Uint8 *keystates = SDL_GetKeyState(NULL);
@@ -239,6 +285,7 @@ void Level1::logic(Uint32 deltaTime)
         blockHit = true;
         shatter_block(i);
         blocks[i].set_status(0);
+        blockCount--;
         ball.change_xdirection();
       }
     }
@@ -282,6 +329,7 @@ void Level1::logic(Uint32 deltaTime)
         blockHit = true;
         shatter_block(i);
         blocks[i].set_status(0);
+        blockCount--;
         ball.change_ydirection();
       }
     }
@@ -313,6 +361,7 @@ void Level1::logic(Uint32 deltaTime)
   // check if went down off screen
   if (ball.get_rect().y + ball.get_rect().h >= SCREEN_HEIGHT)
   {
+    Mix_PlayChannel(1,AminChord,0);
     ball.reset();
     load_level();
   }
@@ -396,5 +445,10 @@ void Level1::render()
   else
   {
     ball.render(1);
+  }
+
+  if (blockCount == 0)
+  {
+    win_screen();
   }
 }

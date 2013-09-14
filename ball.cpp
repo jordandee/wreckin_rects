@@ -44,11 +44,11 @@ void Ball::reset()
   yVel = 0;
 }
 
-void Ball::serve()
+void Ball::serve(float min, float max)
 {
-  // Initialize xVel and yVel between .15 and .35
-  xVel = .15 + rand()/(RAND_MAX/(.35 - .15));
-  yVel = .15 + rand()/(RAND_MAX/(.35 - .15));
+  // Initialize xVel and yVel between min and max
+  xVel = min + rand()/(RAND_MAX/(max - min));
+  yVel = min + rand()/(RAND_MAX/(max - min));
   yVel *= -1;
 
   // Randomize direction

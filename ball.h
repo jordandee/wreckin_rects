@@ -19,7 +19,7 @@ class Ball
     void moveY(Uint32 deltaTime);
     void render(int surface);
     void reset();
-    void serve();
+    void serve(float min, float max);
     void set_x(int X);
     void set_y(int Y);
     SDL_Rect get_rect();
