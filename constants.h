@@ -13,6 +13,7 @@ enum GameStates
     STATE_INTRO,
     STATE_TITLE,
     STATE_LEVEL1,
+    STATE_LEVEL2,
     STATE_EXIT,
 };
 

@@ -3,6 +3,7 @@
 #include "gamestate.h"
 #include "title.h"
 #include "level1.h"
+#include "level2.h"
 
 void set_next_state( int newState )
 {
@@ -34,6 +35,10 @@ void change_state()
 
             case STATE_LEVEL1:
                 currentState = new Level1();
+                break;
+
+            case STATE_LEVEL2:
+                currentState = new Level2();
                 break;
         }
 
