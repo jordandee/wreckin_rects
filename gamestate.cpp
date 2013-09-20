@@ -4,6 +4,8 @@
 #include "title.h"
 #include "level1.h"
 #include "level2.h"
+#include "level3.h"
+#include "level4.h"
 
 void set_next_state( int newState )
 {
@@ -32,13 +34,17 @@ void change_state()
             case STATE_TITLE:
                 currentState = new Title();
                 break;
-
             case STATE_LEVEL1:
                 currentState = new Level1();
                 break;
-
             case STATE_LEVEL2:
                 currentState = new Level2();
+                break;
+            case STATE_LEVEL3:
+                currentState = new Level3();
+                break;
+            case STATE_LEVEL4:
+                currentState = new Level4();
                 break;
         }
 

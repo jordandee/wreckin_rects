@@ -14,6 +14,8 @@ enum GameStates
     STATE_TITLE,
     STATE_LEVEL1,
     STATE_LEVEL2,
+    STATE_LEVEL3,
+    STATE_LEVEL4,
     STATE_EXIT,
 };
 

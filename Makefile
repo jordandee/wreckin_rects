@@ -3,7 +3,7 @@
 CC=g++
 CFLAGS=-c
 LIBS=-lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
-SOURCES=main.cpp level2.cpp gib.cpp ball.cpp paddle.cpp block.cpp collision.cpp level1.cpp title.cpp intro.cpp gamestate.cpp timer.cpp globals.cpp image.cpp init.cpp
+SOURCES=main.cpp level4.cpp level3.cpp level2.cpp gib.cpp ball.cpp paddle.cpp block.cpp collision.cpp level1.cpp title.cpp intro.cpp gamestate.cpp timer.cpp globals.cpp image.cpp init.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 TARGET=wreckin_rects
 

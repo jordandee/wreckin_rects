@@ -7,14 +7,13 @@
 #include "gamestate.h"
 #include "collision.h"
 #include <fstream>
-#include "level2.h"
-#include <iostream>
+#include "level3.h"
 
-Level2::Level2()
+Level3::Level3()
 {
-  background = load_image("level2bg.png");
+  background = load_image("level3bg.png");
   readyMessage = TTF_RenderText_Solid(font, "Get Ready ! ! ! !       Space to Serve", blue);
-  winMessage = TTF_RenderText_Solid(font, "You Win ! ! ! !     Level 2 Complete", blue);
+  winMessage = TTF_RenderText_Solid(font, "You Win ! ! ! !     Level 3 Complete", blue);
 
   timer.start();
   blockLastHitTime = timer.get_ticks() - 250; // -250 so ball doesn't flash at start
@@ -43,7 +42,7 @@ Level2::Level2()
   ready_screen();
 }
 
-Level2::~Level2()
+Level3::~Level3()
 {
   SDL_FreeSurface(background);
   SDL_FreeSurface(readyMessage);
@@ -66,9 +65,9 @@ Level2::~Level2()
   }
 }
 
-void Level2::load_level()
+void Level3::load_level()
 {
-  std::ifstream level("level02.txt");
+  std::ifstream level("level03.txt");
   int stat = 0, i = 0;
 
   blockCount = 0;
@@ -104,7 +103,7 @@ void Level2::load_level()
   readyToServe = true;
 }
 
-void Level2::ready_screen()
+void Level3::ready_screen()
 {
   render();
   apply_surface((SCREEN_WIDTH - readyMessage->w)/2, SCREEN_HEIGHT-150, readyMessage, screen );
@@ -132,7 +131,7 @@ void Level2::ready_screen()
   }
 }
 
-void Level2::win_screen()
+void Level3::win_screen()
 {
   apply_surface((SCREEN_WIDTH - winMessage->w)/2, 150, winMessage, screen );
   SDL_Flip(screen);
@@ -155,7 +154,7 @@ void Level2::win_screen()
       }
       else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_SPACE))
       {
-        set_next_state(STATE_LEVEL3);
+        set_next_state(STATE_LEVEL4);
         return;
       }
     }
@@ -163,7 +162,7 @@ void Level2::win_screen()
 }
 
 // gibs yay
-void Level2::shatter_block(int B)
+void Level3::shatter_block(int B)
 {
   int blockX = blocks[B].get_rect().x;
   int blockY = blocks[B].get_rect().y;
@@ -190,7 +189,7 @@ void Level2::shatter_block(int B)
   }
 }
 
-void Level2::handle_events()
+void Level3::handle_events()
 {
   while(SDL_PollEvent(&event))
   {
@@ -206,7 +205,7 @@ void Level2::handle_events()
     {
       if (readyToServe)
       {
-        ball.serve(.2,.25);
+        ball.serve(.22,.32);
         Mix_PlayChannel(2,Elow,0);
         readyToServe = false;
       }
@@ -234,7 +233,7 @@ void Level2::handle_events()
   }
 }
 
-void Level2::logic(Uint32 deltaTime)
+void Level3::logic(Uint32 deltaTime)
 {
   bool paddleHit = false; // used to play sound
   bool blockHit = false; // used to play sound
@@ -335,8 +334,6 @@ void Level2::logic(Uint32 deltaTime)
       }
     }
   }
-  //std::cout << "x: " << gibs[1][0].get_rect().x << " ";
-  //std::cout << "y: " << gibs[1][0].get_rect().y << " ";
   // check for paddle collision
   if (check_collision(padT, ball.get_rect()) && ball.get_yVel() > 0)
   {
@@ -378,21 +375,24 @@ void Level2::logic(Uint32 deltaTime)
     {
       switch(blockHits)
       {
-        case 0: Mix_PlayChannel(1,Amin[0],0); break;
-        case 1: Mix_PlayChannel(1,Amin[1],0); break;
-        case 2: Mix_PlayChannel(1,Amin[2],0); break;
-        case 3: Mix_PlayChannel(1,Amin[1],0); break;
-        case 4: Mix_PlayChannel(1,Amin[2],0); break;
-        case 5: Mix_PlayChannel(1,Amin[3],0); break;
-        case 6: Mix_PlayChannel(1,Amin[2],0); break;
-        case 7: Mix_PlayChannel(1,Amin[3],0); break;
-        case 8: Mix_PlayChannel(1,Amin[4],0); break;
-        case 9: Mix_PlayChannel(1,Amin[3],0); break;
-        case 10: Mix_PlayChannel(1,Amin[4],0); break;
-        case 11: Mix_PlayChannel(1,Amin[5],0); break;
+        case 0: Mix_PlayChannel(1,Amin[1],0); break;
+        case 1: Mix_PlayChannel(1,Amin[0],0); break;
+        case 2: Mix_PlayChannel(1,Amin[1],0); break;
+        case 3: Mix_PlayChannel(1,Amin[2],0); break;
+        case 4: Mix_PlayChannel(1,Amin[1],0); break;
+        case 5: Mix_PlayChannel(1,Amin[2],0); break;
+        case 6: Mix_PlayChannel(1,Amin[3],0); break;
+        case 7: Mix_PlayChannel(1,Amin[2],0); break;
+        case 8: Mix_PlayChannel(1,Amin[3],0); break;
+        case 9: Mix_PlayChannel(1,Amin[4],0); break;
+        case 10: Mix_PlayChannel(1,Amin[3],0); break;
+        case 11: Mix_PlayChannel(1,Amin[4],0); break;
+        case 12: Mix_PlayChannel(1,Amin[5],0); break;
+        case 13: Mix_PlayChannel(1,Amin[4],0); break;
+        case 14: Mix_PlayChannel(1,Amin[5],0); break;
       }
       blockHits++;
-      if (blockHits == 12)
+      if (blockHits == 15)
       {
         blockHits = 0;
       }
@@ -409,7 +409,7 @@ void Level2::logic(Uint32 deltaTime)
   }
 }
 
-void Level2::render()
+void Level3::render()
 {
   apply_surface(0, 0, background, screen);
 

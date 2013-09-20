@@ -1,19 +1,15 @@
 MUSTS
 
-make some new levels, probably some new backgrounds too
-carbon copy level 1 code for levels 1-5, only difference should be level that loads when you beat it, ball speed, maybe diff background and different sounds too or just a different progression through the notes
-
-make the ball a bit faster in each level
-
-multi ball on last level or bonus level??
-
 win game screen, restart or end on last level
+with lots of explosions and maybe a win song
 
 NICE TO HAVES
 
 load level in a more interesting manner? fall into place? or?
 
 when losing, delay before loading level?
+
+multi ball on last level or bonus level??
 
 redo collision detection completely, make it use the line intercept recursion method, find line between where ball is now and where it will move, detect if that line intersects with a block/paddle, move to the intersection spot, now calculate a new line between where the ball is and where it should go (if it was intersected at half length at first object, has half to go) and use new smaller timestep to reflect accurately and check if it hits another object, recurse, etc
 http://codeincomplete.com/posts/2011/6/12/collision_detection_in_breakout/
