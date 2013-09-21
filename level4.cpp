@@ -154,7 +154,7 @@ void Level4::win_screen()
       }
       else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_SPACE))
       {
-        set_next_state(STATE_EXIT);
+        set_next_state(STATE_WIN);
         return;
       }
     }

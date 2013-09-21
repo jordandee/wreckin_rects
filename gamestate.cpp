@@ -6,6 +6,7 @@
 #include "level2.h"
 #include "level3.h"
 #include "level4.h"
+#include "win.h"
 
 void set_next_state( int newState )
 {
@@ -45,6 +46,9 @@ void change_state()
                 break;
             case STATE_LEVEL4:
                 currentState = new Level4();
+                break;
+            case STATE_WIN:
+                currentState = new Win();
                 break;
         }
 

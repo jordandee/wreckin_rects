@@ -19,6 +19,7 @@ class Gib
     void render();
     void set_xy(int X, int Y);
     void set_xyVel(float XV, float YV);
+    void set_randVel();
     void set_color(int C);
     SDL_Rect get_rect();
 };

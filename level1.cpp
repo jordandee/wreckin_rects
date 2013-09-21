@@ -211,6 +211,11 @@ void Level1::handle_events()
         readyToServe = false;
       }
     }
+    // dev pass cheat
+    else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_p))
+    {
+      set_next_state(STATE_WIN);
+    }
 
     Uint8 *keystates = SDL_GetKeyState(NULL);
 

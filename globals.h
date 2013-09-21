@@ -12,7 +12,7 @@ extern SDL_Event event;
 
 extern TTF_Font *font;
 extern SDL_Color black;
-extern SDL_Color red;
+extern SDL_Color white;
 extern SDL_Color blue;
 
 extern bool gotoNextLevel;

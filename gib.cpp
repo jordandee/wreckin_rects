@@ -100,25 +100,21 @@ void Gib::set_xyVel(float XV, float YV)
   {
     yVel *= -1;
   }
-/*  
-  if (xVel > 0)
+}
+
+void Gib::set_randVel()
+{
+  xVel = (float) rand()/RAND_MAX;
+  yVel = (float) rand()/RAND_MAX;
+
+  if (rand() % 2 == 0)
   {
-    xVel += (float) rand()/RAND_MAX * .2;
+    xVel *= -1;
   }
-  else
+  if (rand() % 2 == 0)
   {
-    xVel -= (float) rand()/RAND_MAX * .2;
+    yVel *= -1;
   }
-  
-  if (yVel > 0)
-  {
-    yVel += (float) rand()/RAND_MAX * .2;
-  }
-  else
-  {
-    yVel -= (float) rand()/RAND_MAX * .2;
-  }
-  */
 }
 
 SDL_Rect Gib::get_rect()
