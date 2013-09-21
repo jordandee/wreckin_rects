@@ -13,7 +13,34 @@ Win::Win()
 
   message = TTF_RenderText_Solid(font, "You Beat Wreckin Rects", white);
   message2 = TTF_RenderText_Solid(font, "[R]estart or [ESC]ape", white);
-  std::cout << "made it to win, sheeit";
+
+  CmajChord = Mix_LoadWAV("Cmaj_chord.wav");
+
+  timer.start();
+  gibSelect = 0;
+  init_explosion();
+
+  Mix_PlayChannel(-1,CmajChord,0);
+}
+
+void Win::init_explosion()
+{
+  timer.start();
+
+  int x = rand() % (SCREEN_WIDTH - 10);
+  int y = rand() % (SCREEN_HEIGHT - 10);
+
+  for (int i = 0; i < 200; i++)
+  {
+    gibs[gibSelect][i].set_color((rand() % 4) + 1);
+    gibs[gibSelect][i].set_xy(x,y);
+    gibs[gibSelect][i].set_randVel();
+  }
+  gibSelect++;
+  if (gibSelect >= 4)
+  {
+    gibSelect = 0;
+  }
 }
 
 Win::~Win()
@@ -21,6 +48,8 @@ Win::~Win()
   SDL_FreeSurface(background);
   SDL_FreeSurface(message);
   SDL_FreeSurface(message2);
+
+  Mix_FreeChunk(CmajChord);
 }
 
 void Win::handle_events()
@@ -46,13 +75,32 @@ void Win::handle_events()
 
 void Win::logic(Uint32 deltaTime)
 {
+  for (int j = 0; j < 4; j++)
+  {
+    for (int i = 0; i < 200; i++)
+    {
+      gibs[j][i].move(deltaTime);
+    }
+  }
 
+  if (timer.get_ticks() > 500)
+  {
+    init_explosion();
+  }
 }
 
 void Win::render()
 {
   //Show the background
   apply_surface( 0, 0, background, screen );
+
+  for (int j = 0; j < 4; j++)
+  {
+    for (int i = 0; i < 200; i++)
+    {
+      gibs[j][i].render();
+    }
+  }
 
   apply_surface( ( SCREEN_WIDTH - message->w ) / 2, ( SCREEN_HEIGHT - message->h ) / 2, message, screen );
   apply_surface( ( SCREEN_WIDTH - message2->w ) / 2, ( SCREEN_HEIGHT - message2->h ) - 200, message2, screen );

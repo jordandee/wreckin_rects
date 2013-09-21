@@ -1,9 +1,10 @@
 MUSTS
 
-win game screen, restart or end on last level
-with lots of explosions and maybe a win song
+DONE WITH THE MUSTS !! ! ! !
 
 NICE TO HAVES
+
+interesting fireworks sounds or win song for final win state
 
 load level in a more interesting manner? fall into place? or?
 
